@@ -8,7 +8,7 @@ function Form({ formData, setFormData, handleGenerate }) {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Page refresh nahi hoga
+    e.preventDefault(); 
     handleGenerate();
   };
 

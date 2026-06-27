@@ -5,7 +5,7 @@ function PanCard({ data }) {
     <div className="pan-card">
 
       <div className="heading">
-        <h3>INCOME TAX DEPARTMENT</h3>
+        <h3>College DEPARTMENT</h3>
         <p>Government of India</p>
       </div>
 
