@@ -1,5 +1,16 @@
+import { useState } from "react";
 
-function Form({ formData, setFormData, handleGenerate }) {
+function Form({
+  formData,
+  setFormData,
+  handleGenerate,
+  captcha,
+  setCaptcha,
+  generateCaptcha,
+}) {
+
+  const [userCaptcha, setUserCaptcha] = useState("");
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -8,12 +19,26 @@ function Form({ formData, setFormData, handleGenerate }) {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
+
+    if (userCaptcha !== captcha) {
+      alert("Invalid Captcha!");
+
+      setCaptcha(generateCaptcha());
+      setUserCaptcha("");
+
+      return;
+    }
+
     handleGenerate();
+
+    setCaptcha(generateCaptcha());
+    setUserCaptcha("");
   };
 
   return (
     <form className="form" onSubmit={handleSubmit}>
+
       <input
         type="text"
         name="name"
@@ -48,11 +73,95 @@ function Form({ formData, setFormData, handleGenerate }) {
         onChange={handleChange}
       />
 
+      {/* Captcha */}
+
+      <div className="captcha-box">
+
+        <h3>{captcha}</h3>
+
+        <button
+          type="button"
+          onClick={() => setCaptcha(generateCaptcha())}
+        >
+          🔄
+        </button>
+
+      </div>
+
+      <input
+        type="text"
+        placeholder="Enter Captcha"
+        value={userCaptcha}
+        onChange={(e) => setUserCaptcha(e.target.value)}
+      />
+
       <button type="submit">
         Generate Card
       </button>
+
     </form>
   );
 }
 
 export default Form;
+
+
+
+
+// function Form({ formData, setFormData, handleGenerate }) {
+//   const handleChange = (e) => {
+//     setFormData({
+//       ...formData,
+//       [e.target.name]: e.target.value,
+//     });
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault(); 
+//     handleGenerate();
+//   };
+
+//   return (
+//     <form className="form" onSubmit={handleSubmit}>
+//       <input
+//         type="text"
+//         name="name"
+//         placeholder="Full Name"
+//         onChange={handleChange}
+//       />
+
+//       <input
+//         type="text"
+//         name="father"
+//         placeholder="Father Name"
+//         onChange={handleChange}
+//       />
+
+//       <input
+//         type="date"
+//         name="dob"
+//         onChange={handleChange}
+//       />
+
+//       <input
+//         type="text"
+//         name="pan"
+//         placeholder="ABCDE1234F"
+//         onChange={handleChange}
+//       />
+
+//       <input
+//         type="text"
+//         name="photo"
+//         placeholder="Photo URL"
+//         onChange={handleChange}
+//       />
+
+//       <button type="submit">
+//         Generate Card
+//       </button>
+//     </form>
+//   );
+// }
+
+// export default Form;
